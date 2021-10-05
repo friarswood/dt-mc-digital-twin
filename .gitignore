@@ -3,27 +3,9 @@ build/
 .env
 .vscode/
 
-mail.json
-
-app.log
-app.pid
-
 .venv*/
 
 __pycache__/
 dist/
 *.egg-info/
 .eggs/
-
-# the "!" only works if there's a "*" in the pattern
-src/ei/*
-!src/ei/Makefile
-!src/ei/dt*.zip
-
-*.o
-*.so
-
-test/test-cpp
-
-# NN training data (uploaded to EI studio)
-data/training/

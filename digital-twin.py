@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from mcpi.minecraft import Minecraft
+from mcpi import block
 import disruptive as dt
 
 DOOR_BOTTOM = 0
@@ -12,8 +13,12 @@ DOOR_OPEN = 4
 
 def main(dt_project_id, mc):
 
-  x, y, z = 49, 64, 62
-  front_door = mc.getBlockWithData(x, y, z)
+  door_loc = eval(os.getenv("FRONT_DOOR_COORDS"), "(0,0,0)")
+
+  front_door = mc.getBlockWithData(door_loc)
+  # check its a door
+  if front_door.id != block.DOOR_WOOD.id:
+    print("Door not found at location {door_loc}")
 
   # Initialize a stream generator for all temperature events in a project.
   for e in dt.Stream.event_stream(dt_project_id, event_types=[dt.events.TOUCH, dt.events.OBJECT_PRESENT]):
@@ -24,6 +29,7 @@ def main(dt_project_id, mc):
       if e.device_id == "bchopvl7rihkdo9k5img":
         front_door.data = DOOR_OPEN if e.data.state == "NOT_PRESENT" else DOOR_CLOSED
         mc.setBlock(x, y, z, front_door)
+    # TODO check touch and ring bell
 
 
 if __name__ == "__main__":
