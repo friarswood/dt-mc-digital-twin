@@ -13,23 +13,23 @@ DOOR_OPEN = 4
 
 def main(dt_project_id, mc):
 
-  door_loc = eval(os.getenv("FRONT_DOOR_COORDS"), "(0,0,0)")
+  door_loc = eval(os.getenv("FRONT_DOOR_COORDS", "(0,0,0)"))
 
   front_door = mc.getBlockWithData(door_loc)
   # check its a door
   if front_door.id != block.DOOR_WOOD.id:
-    print("Door not found at location {door_loc}")
+    raise RuntimeError(f"Door not found at location {door_loc}")
 
   # Initialize a stream generator for all temperature events in a project.
   for e in dt.Stream.event_stream(dt_project_id, event_types=[dt.events.TOUCH, dt.events.OBJECT_PRESENT]):
     if e.event_type == dt.events.TOUCH:
       print(f'touch from {e.device_id} at {e.data.timestamp}')
+      # TODO ring bell or note block
     elif e.event_type == dt.events.OBJECT_PRESENT:
       print(f'{e.data.state} from {e.device_id} at {e.data.timestamp}')
       if e.device_id == "bchopvl7rihkdo9k5img":
         front_door.data = DOOR_OPEN if e.data.state == "NOT_PRESENT" else DOOR_CLOSED
-        mc.setBlock(x, y, z, front_door)
-    # TODO check touch and ring bell
+        mc.setBlock(door_loc, front_door)
 
 
 if __name__ == "__main__":
@@ -50,8 +50,10 @@ if __name__ == "__main__":
   dt.log_level = 'debug'
   dt.default_auth = dt.Auth.service_account(dt_svc_key, dt_svc_secret, dt_svc_email)
 
-  main(dt_project, mc)
-
+  try:
+    main(dt_project, mc)
+  except Exception as e:
+    print(e)
 
 
 

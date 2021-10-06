@@ -1,6 +1,6 @@
 # DT-Minecraft Digital Twin
 
-A "fun" ongoing project with potentially useful applications: using DT's virtual sensors to observe the real world and update objects in a virtual world accordingly.
+A "fun" *ongoing* project with potentially useful applications: using DT's virtual sensors to observe the real world and update objects in a virtual world accordingly.
 
 ## Prerequisites
 
@@ -12,8 +12,18 @@ A "fun" ongoing project with potentially useful applications: using DT's virtual
 
 My front door has a DT proximity sensor attached to it. Next to the front door is a DT touch sensor "doorbell".
 
-We've built a model of our house in Minecraft, and we want the front door connected to the real front door, so that when the front door opens or shuts, so does the Minecraft "twin". Also, when somebody triggers the touch sensor, we should hear a bell ringing in Minecraft...
+We've built a model of our house in Minecraft, and we want the front door connected to the real front door, so that when the front door opens or shuts, so does the Minecraft "twin".
 
+![](./doc/img/screenshot.png)
+
+
+## TODO list
+
+- when somebody triggers the touch sensor, we should hear a bell ringing in Minecraft...
+- daylight hours synchronised with the real world
+- weather synchronised with the real world, using pressure, temperature and perhaps even water-present sensors
+
+Any other ideas? Submit an issue!
 ## Setup
 
 You can run the integration directly on the Minecraft server, or on a different PC. It uses two key python packages:
