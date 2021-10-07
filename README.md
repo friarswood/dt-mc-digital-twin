@@ -50,6 +50,13 @@ MC_PORT=4711
 FRONT_DOOR_COORDS="(49,64,62)" # change as necessary
 ```
 
+Now just run the integration:
 
+```sh
+python digital-twin.py
+```
 
+and here it is in action:
+
+![video](./doc/img/video.gif)
 
