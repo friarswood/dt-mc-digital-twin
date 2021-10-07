@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from mcpi.minecraft import Minecraft
 from mcpi import block
 import disruptive as dt
+from time import sleep
+
+import environment
+import threading
 
 DOOR_BOTTOM = 0
 DOOR_TOP = 8
@@ -11,7 +15,29 @@ DOOR_OPEN = 4
 
 # /setworldspawn 0 0 0
 
+def time_sync(mc):
+  while True:
+    t = environment.mc_now()
+    print(f"TODO /time set {t}")
+    # dont work
+    # mc.postToChat(f"/time set {t}")
+    sleep(10)
+
+def weather_sync(mc, dt_project_id):
+  while True:
+    w = environment.weather(dt_project_id)
+    print(f"TODO /weather {w}")
+    sleep(900) # 15 mins
+
 def main(dt_project_id, mc):
+
+  # set up the environmental sync threads
+  t_thread = threading.Thread(target=time_sync, args=(mc,), daemon=True)
+  w_thread = threading.Thread(target=weather_sync, args=(mc, dt_project_id), daemon=True)
+
+  # o need to join as they run indefinitely
+  t_thread.start()
+  w_thread.start()
 
   door_loc = eval(os.getenv("FRONT_DOOR_COORDS", "(0,0,0)"))
 
@@ -47,7 +73,7 @@ if __name__ == "__main__":
   dt_svc_key = os.getenv("DT_SVC_KEY")
   dt_svc_secret = os.getenv("DT_SVC_SECRET")
   dt_svc_email = os.getenv("DT_SVC_EMAIL")
-  dt.log_level = 'debug'
+  # dt.log_level = 'debug'
   dt.default_auth = dt.Auth.service_account(dt_svc_key, dt_svc_secret, dt_svc_email)
 
   try:

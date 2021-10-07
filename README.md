@@ -19,9 +19,10 @@ We've built a model of our house in Minecraft, and we want the front door connec
 
 ## TODO list
 
-- when somebody triggers the touch sensor, we should hear a bell ringing in Minecraft...
-- daylight hours synchronised with the real world
-- weather synchronised with the real world, using pressure, temperature and perhaps even water-present sensors
+- [X] Minecraft door opens/closes in sync with real door
+- [ ] when somebody triggers the touch sensor, we should hear a bell ringing in Minecraft...
+- [ ] daylight hours synchronised with the real world
+- [ ] weather synchronised with the real world, using pressure, temperature and perhaps even water-present sensors
 
 Any other ideas? Submit an issue!
 ## Setup
